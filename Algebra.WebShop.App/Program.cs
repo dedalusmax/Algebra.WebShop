@@ -1,5 +1,5 @@
 using Algebra.WebShop.App.Data;
-using Microsoft.AspNetCore.Identity;
+using Algebra.WebShop.App.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace Algebra.WebShop.App;
@@ -19,9 +19,9 @@ public class Program
 
         builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-        builder.Services.AddDefaultIdentity<IdentityUser>(options => 
+        builder.Services.AddDefaultIdentity<ApplicationUser>(options => 
         { 
-            options.SignIn.RequireConfirmedAccount = true; 
+            options.SignIn.RequireConfirmedAccount = false; 
         })
         .AddEntityFrameworkStores<ApplicationDbContext>();
 

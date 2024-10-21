@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Algebra.WebShop.App.Data;
 
-public class ApplicationDbContext : IdentityDbContext
+public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
 {
     public DbSet<Product> Products { get; set; }
 
@@ -19,5 +19,23 @@ public class ApplicationDbContext : IdentityDbContext
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
         : base(options)
     {
+
+    }
+
+    protected override void OnModelCreating(ModelBuilder builder)
+    {
+        builder.Entity<Category>()
+            .HasIndex(_ => _.Name)
+            .IsUnique();
+
+        builder.Entity<Product>()
+            .HasIndex(_ => _.Name)
+            .IsUnique();
+
+        builder.Entity<OrderItem>()
+            .HasIndex(_ => new { _.OrderId, _.ProductId })
+            .IsUnique();
+
+        base.OnModelCreating(builder);
     }
 }

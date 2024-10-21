@@ -8,8 +8,6 @@ public class Order
     [Key]
     public int Id { get; set; }
 
-    // TODO: dodati UserId
-
     [Required]
     [Column(TypeName = "decimal(9, 2)")]
     public decimal Total { get; set; }
