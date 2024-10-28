@@ -1,5 +1,6 @@
 using Algebra.WebShop.App.Data;
 using Algebra.WebShop.App.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace Algebra.WebShop.App;
@@ -23,6 +24,7 @@ public class Program
         { 
             options.SignIn.RequireConfirmedAccount = false; 
         })
+        .AddRoles<IdentityRole>()
         .AddEntityFrameworkStores<ApplicationDbContext>();
 
         builder.Services.AddControllersWithViews();
