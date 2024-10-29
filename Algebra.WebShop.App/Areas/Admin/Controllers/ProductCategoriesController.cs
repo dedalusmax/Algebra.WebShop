@@ -46,8 +46,8 @@ namespace Algebra.WebShop.App.Areas.Admin.Controllers
         // GET: Admin/ProductCategories/Create
         public IActionResult Create()
         {
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name");
-            ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Name");
+            ViewData["Categories"] = new SelectList(_context.Categories, "Id", "Name");
+            ViewData["Products"] = new SelectList(_context.Products, "Id", "Name");
             return View();
         }
 
@@ -67,8 +67,8 @@ namespace Algebra.WebShop.App.Areas.Admin.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name", productCategory.CategoryId);
-            ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Name", productCategory.ProductId);
+            ViewData["Categories"] = new SelectList(_context.Categories, "Id", "Name", productCategory.CategoryId);
+            ViewData["Products"] = new SelectList(_context.Products, "Id", "Name", productCategory.ProductId);
             return View(productCategory);
         }
 
@@ -85,8 +85,8 @@ namespace Algebra.WebShop.App.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name", productCategory.CategoryId);
-            ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Name", productCategory.ProductId);
+            ViewData["Categories"] = new SelectList(_context.Categories, "Id", "Name", productCategory.CategoryId);
+            ViewData["Products"] = new SelectList(_context.Products, "Id", "Name", productCategory.ProductId);
             return View(productCategory);
         }
 
@@ -125,8 +125,8 @@ namespace Algebra.WebShop.App.Areas.Admin.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name", productCategory.CategoryId);
-            ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Name", productCategory.ProductId);
+            ViewData["Categories"] = new SelectList(_context.Categories, "Id", "Name", productCategory.CategoryId);
+            ViewData["Products"] = new SelectList(_context.Products, "Id", "Name", productCategory.ProductId);
             return View(productCategory);
         }
 
