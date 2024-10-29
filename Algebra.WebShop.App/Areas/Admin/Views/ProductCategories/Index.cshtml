@@ -1,10 +1,10 @@
 ﻿@model IEnumerable<ProductCategory>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Product categories";
 }
 
-<h1>Index</h1>
+<h1>Product categories</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -39,3 +39,5 @@
 }
     </tbody>
 </table>
+
+<a asp-controller="Products" asp-action="Index">Back to products</a>
