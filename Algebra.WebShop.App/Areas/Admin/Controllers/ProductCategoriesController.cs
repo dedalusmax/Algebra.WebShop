@@ -17,9 +17,13 @@ namespace Algebra.WebShop.App.Areas.Admin.Controllers
         }
 
         // GET: Admin/ProductCategories
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int productId)
         {
-            var applicationDbContext = _context.ProductCategories.Include(p => p.Category).Include(p => p.Product);
+            var applicationDbContext = _context.ProductCategories.Include(p => p.Category).Include(p => p.Product)
+                .Where(x => x.ProductId == productId);
+
+            ViewBag.ProductId = productId; 
+
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -44,10 +48,13 @@ namespace Algebra.WebShop.App.Areas.Admin.Controllers
         }
 
         // GET: Admin/ProductCategories/Create
-        public IActionResult Create()
+        public IActionResult Create(int productId)
         {
             ViewData["Categories"] = new SelectList(_context.Categories, "Id", "Name");
-            ViewData["Products"] = new SelectList(_context.Products, "Id", "Name");
+            ViewData["Products"] = new SelectList(_context.Products.Where(x => x.Id == productId), "Id", "Name");
+
+            ViewBag.ProductId = productId;
+
             return View();
         }
 
@@ -65,10 +72,13 @@ namespace Algebra.WebShop.App.Areas.Admin.Controllers
             {
                 _context.Add(productCategory);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+
+                return RedirectToAction(nameof(Index), new { productId = productCategory.ProductId });
             }
+
             ViewData["Categories"] = new SelectList(_context.Categories, "Id", "Name", productCategory.CategoryId);
             ViewData["Products"] = new SelectList(_context.Products, "Id", "Name", productCategory.ProductId);
+
             return View(productCategory);
         }
 
@@ -123,10 +133,14 @@ namespace Algebra.WebShop.App.Areas.Admin.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+
+                return RedirectToAction(nameof(Index), new { productId = productCategory.ProductId });
+
             }
+
             ViewData["Categories"] = new SelectList(_context.Categories, "Id", "Name", productCategory.CategoryId);
             ViewData["Products"] = new SelectList(_context.Products, "Id", "Name", productCategory.ProductId);
+
             return View(productCategory);
         }
 
