@@ -18,7 +18,7 @@ namespace Algebra.WebShop.App.Areas.Admin.Controllers
         // GET: Admin/Products
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Products.ToListAsync());
+            return View(await _context.Products.Include(x => x.Categories).ThenInclude(x => x.Category).ToListAsync());
         }
 
         // GET: Admin/Products/Details/5
