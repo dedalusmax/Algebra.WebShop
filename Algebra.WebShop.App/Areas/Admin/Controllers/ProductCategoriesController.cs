@@ -2,6 +2,7 @@
 using Algebra.WebShop.App.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
 
 namespace Algebra.WebShop.App.Areas.Admin.Controllers
@@ -28,7 +29,7 @@ namespace Algebra.WebShop.App.Areas.Admin.Controllers
         }
 
         // GET: Admin/ProductCategories/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(int? id, int productId)
         {
             if (id == null)
             {
@@ -39,10 +40,13 @@ namespace Algebra.WebShop.App.Areas.Admin.Controllers
                 .Include(p => p.Category)
                 .Include(p => p.Product)
                 .FirstOrDefaultAsync(m => m.Id == id);
+
             if (productCategory == null)
             {
                 return NotFound();
             }
+
+            ViewBag.ProductId = productId;
 
             return View(productCategory);
         }
@@ -83,7 +87,7 @@ namespace Algebra.WebShop.App.Areas.Admin.Controllers
         }
 
         // GET: Admin/ProductCategories/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(int? id, int productId)
         {
             if (id == null)
             {
@@ -95,8 +99,12 @@ namespace Algebra.WebShop.App.Areas.Admin.Controllers
             {
                 return NotFound();
             }
+
+            ViewBag.ProductId = productId;
+
             ViewData["Categories"] = new SelectList(_context.Categories, "Id", "Name", productCategory.CategoryId);
             ViewData["Products"] = new SelectList(_context.Products, "Id", "Name", productCategory.ProductId);
+
             return View(productCategory);
         }
 
@@ -135,7 +143,6 @@ namespace Algebra.WebShop.App.Areas.Admin.Controllers
                 }
 
                 return RedirectToAction(nameof(Index), new { productId = productCategory.ProductId });
-
             }
 
             ViewData["Categories"] = new SelectList(_context.Categories, "Id", "Name", productCategory.CategoryId);
@@ -145,7 +152,7 @@ namespace Algebra.WebShop.App.Areas.Admin.Controllers
         }
 
         // GET: Admin/ProductCategories/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(int? id, int productId)
         {
             if (id == null)
             {
@@ -156,10 +163,13 @@ namespace Algebra.WebShop.App.Areas.Admin.Controllers
                 .Include(p => p.Category)
                 .Include(p => p.Product)
                 .FirstOrDefaultAsync(m => m.Id == id);
+
             if (productCategory == null)
             {
                 return NotFound();
             }
+
+            ViewBag.ProductId = productId;
 
             return View(productCategory);
         }
@@ -167,7 +177,7 @@ namespace Algebra.WebShop.App.Areas.Admin.Controllers
         // POST: Admin/ProductCategories/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(int id, int productId)
         {
             var productCategory = await _context.ProductCategories.FindAsync(id);
             if (productCategory != null)
@@ -176,7 +186,7 @@ namespace Algebra.WebShop.App.Areas.Admin.Controllers
             }
 
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Index), new { productId });
         }
 
         private bool ProductCategoryExists(int id)
