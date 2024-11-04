@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Algebra.WebShop.App.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class OrderItemsController : Controller
     {
         private readonly ApplicationDbContext _context;
