@@ -20,8 +20,8 @@ namespace Algebra.WebShop.App.Data.Migrations
             var hasher = new PasswordHasher<ApplicationUser>();
             var pwd = hasher.HashPassword(null, "Password123!");
 
-            migrationBuilder.Sql($"INSERT INTO AspNetRoles (Id, Name) VALUES ('{ADMIN_ROLE_ID}', '{ADMIN_ROLE_NAME}')");
-            migrationBuilder.Sql($"INSERT INTO AspNetUsers (Id, UserName, NormalizedUserName, Email, NormalizedEmail, EmailConfirmed, PasswordHash, SecurityStamp, ConcurrencyStamp, PhoneNumberConfirmed, TwoFactorEnabled, LockoutEnabled, AccessFailedCount) VALUES ('{ADMIN_USER_ID}', '{ADMIN_USER_NAME}', '{ADMIN_USER_NAME}', '{ADMIN_USER_NAME}', '{ADMIN_USER_NAME}', 1, '{pwd}', NEWID(), NEWID(), 1, 0, 0, 0)");
+            migrationBuilder.Sql($"INSERT INTO AspNetRoles (Id, Name, NormalizedName) VALUES ('{ADMIN_ROLE_ID}', '{ADMIN_ROLE_NAME}', '{ADMIN_ROLE_NAME.ToUpper()}')");
+            migrationBuilder.Sql($"INSERT INTO AspNetUsers (Id, UserName, NormalizedUserName, Email, NormalizedEmail, EmailConfirmed, PasswordHash, SecurityStamp, ConcurrencyStamp, PhoneNumberConfirmed, TwoFactorEnabled, LockoutEnabled, AccessFailedCount) VALUES ('{ADMIN_USER_ID}', '{ADMIN_USER_NAME}', '{ADMIN_USER_NAME.ToUpper()}', '{ADMIN_USER_NAME}', '{ADMIN_USER_NAME.ToUpper()}', 1, '{pwd}', NEWID(), NEWID(), 1, 0, 0, 0)");
             migrationBuilder.Sql($"INSERT INTO AspNetUserRoles VALUES ('{ADMIN_USER_ID}', '{ADMIN_ROLE_ID}')");
         }
 
