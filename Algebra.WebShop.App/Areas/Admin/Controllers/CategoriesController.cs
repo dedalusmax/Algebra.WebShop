@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Algebra.WebShop.App.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class CategoriesController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -18,6 +18,7 @@ namespace Algebra.WebShop.App.Areas.Admin.Controllers
         }
 
         // GET: Admin/Categories
+        //[AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             return View(await _context.Categories.ToListAsync());
