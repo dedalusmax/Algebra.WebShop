@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Algebra.WebShop.App.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Authorize(Roles = "Admin")]
+    [Authorize(Policy = "RequireAdminRole")]
     public class CategoriesController : Controller
     {
         private readonly ApplicationDbContext _context;
