@@ -19,7 +19,7 @@ public class Product
 
     public string? Description { get; set; }
 
-    public required virtual ICollection<ProductCategory> Categories { get; set; }
+    public virtual ICollection<ProductCategory> Categories { get; set; }
 
     [ForeignKey("ProductId")]
     public virtual ICollection<OrderItem> OrderItems { get; set; }
