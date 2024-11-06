@@ -9,15 +9,15 @@
 <div class="row mb-5">
     <div class="col-2">
         <div class="dropdown">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                 Filter by categories
             </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                 @foreach (var category in ViewBag.Categories)
                 {
-                    <a class="dropdown-item" asp-action="Index" asp-route-categoryId="@category.Value">@category.Text</a>
+                    <li><a class="dropdown-item" asp-action="Index" asp-route-categoryId="@category.Value">@category.Text</a></li>
                 }
-            </div>
+            </ul>
         </div>
     </div>
     <div class="col-2">
