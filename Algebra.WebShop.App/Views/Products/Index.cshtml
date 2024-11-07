@@ -36,7 +36,7 @@
                     <hr />
                     <label>Price:</label>
                     <p class="card-text"><strong>@item.Price.ToString("0.00") €</strong></p>
-                    <a class="btn btn-primary">Add to cart</a>
+                    <a class="btn btn-primary" asp-controller="Cart" asp-action="Index" asp-route-productId="@item.Id">Add to cart</a>
                 </div>
             </div>
         </div>
