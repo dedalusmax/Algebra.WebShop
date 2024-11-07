@@ -21,7 +21,7 @@ namespace Algebra.WebShop.App.Controllers
         {
             var cart = HttpContext.Session.GetCart();
 
-            if (cart.Count == 0)
+            if (cart.Items.Count == 0)
             {
                 var item = new CartItem
                 {
@@ -29,13 +29,13 @@ namespace Algebra.WebShop.App.Controllers
                     Quantity = 1
                 };
 
-                cart.Add(item);
+                cart.Items.Add(item);
             }
             else
             {
-                if (cart.Any(x => x.Product.Id == productId))
+                if (cart.Items.Any(x => x.Product.Id == productId))
                 {
-                    var item = cart.Single(x => x.Product.Id.Equals(productId));
+                    var item = cart.Items.Single(x => x.Product.Id.Equals(productId));
                     item.Quantity++;
                 } 
                 else
@@ -46,7 +46,7 @@ namespace Algebra.WebShop.App.Controllers
                         Quantity = 1
                     };
 
-                    cart.Add(item);
+                    cart.Items.Add(item);
                 }
             }
 

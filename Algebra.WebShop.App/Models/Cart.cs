@@ -8,3 +8,10 @@ public record CartItem
 
     public decimal Total => Product.Price * Quantity;
 }
+
+public record Cart
+{
+    public List<CartItem> Items { get; set; } = [];
+
+    public decimal GrandTotal => Items.Count == 0 ? 0 : Items.Sum(x => x.Total);
+}
