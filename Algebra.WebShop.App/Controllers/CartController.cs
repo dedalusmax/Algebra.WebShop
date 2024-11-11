@@ -54,5 +54,20 @@ namespace Algebra.WebShop.App.Controllers
 
             return RedirectToAction(nameof(Index));
         }
+
+        public IActionResult RemoveFromCart(int productId)
+        {
+            var cart = HttpContext.Session.GetCart();
+
+            if (cart.Items.Any(x => x.Product.Id == productId))
+            {
+                var item = cart.Items.Single(x => x.Product.Id.Equals(productId));
+                cart.Items.Remove(item);
+            }
+
+            HttpContext.Session.SetCart(cart);
+
+            return RedirectToAction(nameof(Index));
+        }
     }
 }
