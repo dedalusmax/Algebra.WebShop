@@ -55,6 +55,7 @@ namespace Algebra.WebShop.App.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [HttpPost]
         public IActionResult RemoveFromCart(int productId)
         {
             var cart = HttpContext.Session.GetCart();
