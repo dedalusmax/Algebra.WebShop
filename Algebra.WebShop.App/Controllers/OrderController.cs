@@ -1,10 +1,13 @@
 ﻿using Algebra.WebShop.App.Data;
 using Algebra.WebShop.App.Extensions;
 using Algebra.WebShop.App.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace Algebra.WebShop.App.Controllers
 {
+    [Authorize]
     public class OrderController(ApplicationDbContext context) : Controller
     {
         public IActionResult Index(bool? success)
@@ -23,15 +26,19 @@ namespace Algebra.WebShop.App.Controllers
         public IActionResult Create([Bind("CustomerFirstName,CustomerLastName,CustomerEmailAddress,CustomerPhoneNumber,CustomerAddress")] Order order)
         {
             ModelState.Remove("Items");
+            ModelState.Remove("User");
+            ModelState.Remove("UserId");
 
             if (ModelState.IsValid)
             {
                 // TODO: implementirati transakciju
 
                 var cart = HttpContext.Session.GetCart();
+                var userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
                 order.Total = cart.GrandTotal;
                 order.DateTimeCreated = DateTime.UtcNow;
+                order.UserId = userId!;
 
                 context.Orders.Add(order);
                 context.SaveChanges();
@@ -61,18 +68,17 @@ namespace Algebra.WebShop.App.Controllers
             }
             else
             {
+                var errors = new List<string>();
                 foreach (var item in ModelState.Values)
                 {
                     foreach (var error in item.Errors)
                     {
-                        Console.WriteLine(error);
+                        errors.Add(error.ErrorMessage);
                     }
                 }
 
-                // ViewData["Errors"] = error;
+                return RedirectToAction(nameof(Index), new { success = false, errors });
             }
-
-            return View();
         }
 
         [HttpPost]

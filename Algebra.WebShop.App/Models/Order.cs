@@ -44,5 +44,8 @@ public class Order
     [ForeignKey("OrderId")]
     public virtual ICollection<OrderItem> Items { get; set; }
 
-    //public string UserId { get; set; }
+    [Required]
+    public string UserId { get; set; }
+
+    public virtual ApplicationUser User { get; set; }
 }
