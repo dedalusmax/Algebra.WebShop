@@ -33,7 +33,7 @@ public class Order
 
     [Required(ErrorMessage = "Customer's phone number is required.")]
     [DisplayName("Customer's phone number")]
-    [StringLength(50), Phone]
+    [StringLength(50)]
     public string CustomerPhoneNumber { get; set; }
 
     [Required(ErrorMessage = "Customer's address is required.")]

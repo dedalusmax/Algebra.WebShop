@@ -4,6 +4,18 @@
     ViewData["Title"] = "Order";
 }
 
+@* <div class="alert alert-danger" role="alert">
+  An error has occured: 
+</div>
+ *@
+
+@if (ViewBag.Success == true)
+{
+    <div class="alert alert-success" role="alert">
+      Order has been successfully placed!
+    </div>    
+}
+
 <div class="text-center mb-3">
     <h1 class="display-4">Place your order</h1>
 </div>
@@ -91,9 +103,13 @@
                     <input asp-for="CustomerAddress" class="form-control" />
                     <span asp-validation-for="CustomerAddress" class="text-danger"></span>
                 </div>
-                <div class="form-group">
-                    <input type="submit" value="Create" class="btn btn-primary" />
+                <div class="row">
+                    <div class="form-group">
+                        <a class="btn btn-outline-danger float-start" asp-controller="Cart" asp-action="Index">Cancel order</a>
+                        <input type="submit" value="Place order" class="btn btn-primary float-end" />
+                    </div>
                 </div>
+
             </form>
         </div>
     </div>
