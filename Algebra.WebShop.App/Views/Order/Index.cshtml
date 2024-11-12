@@ -23,47 +23,7 @@
 <div class="container">
     <div class="row mt-3">
         <div class="col">
-            <!-- TODO: refactor into a separate component  -->
-            <div class="text-center">
-                <h3>Cart items</h3>
-            </div>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th></th>
-                        <th>Product</th>
-                        <th>Price</th>
-                        <th>Quantity</th>
-                        <th>Total</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in ViewBag.Cart.Items)
-                    {
-                        <tr>
-                            <td>
-                                <form method="POST" asp-action="RemoveFromCart">
-                                    <input type="hidden" name="productId" value="@item.Product.Id" />
-                                    <input type="submit" class="btn btn-sm btn-danger" value="Remove" />
-                                </form>
-                                @*                         <a class="btn btn-sm btn-danger" asp-action="RemoveFromCart" asp-route-productId="@item.Product.Id">Remove</a>
-                            *@
-                            </td>
-                            <td>@item.Product.Name</td>
-                            <td>@item.Product.Price.ToString("0.00") €</td>
-                            <td>@item.Quantity</td>
-                            <td>@item.Total.ToString("0.00") €</td>
-                        </tr>
-                    }
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td> <b>Total price: @ViewBag.Cart.GrandTotal.ToString("0.00") €</b></td>
-                    </tr>
-                </tbody>
-            </table>
+            <vc:shopping-cart></vc:shopping-cart>
         </div>
     </div>
 
