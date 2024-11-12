@@ -1,4 +1,5 @@
 ﻿using Algebra.WebShop.App.Extensions;
+using Algebra.WebShop.App.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Algebra.WebShop.App.Controllers
@@ -9,7 +10,16 @@ namespace Algebra.WebShop.App.Controllers
         {
             var cart = HttpContext.Session.GetCart();
 
-            return View(cart);
+            ViewData["Cart"] = cart;
+
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Create([Bind("CustomerFirstName,CustomerLastName,CustomerEmailAddress,CustomerPhoneNumber,CustomerAddress")] Order order)
+        {
+            return View(order);
         }
     }
 }

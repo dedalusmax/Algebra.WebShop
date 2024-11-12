@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Algebra.WebShop.App.Models;
@@ -16,23 +17,28 @@ public class Order
     public decimal Total { get; set; }
 
     [Required(ErrorMessage = "Customer's first name is required.")]
+    [DisplayName("Customer's first name")]
     [StringLength(50)]
     public string CustomerFirstName { get; set; }
 
     [Required(ErrorMessage = "Customer's last name is required.")]
+    [DisplayName("Customer's last name")]
     [StringLength(50)]
     public string CustomerLastName { get; set; }
 
     [Required(ErrorMessage = "Customer's email is required.")]
-    [StringLength(50)]
+    [DisplayName("Customer's email address")]
+    [StringLength(50), EmailAddress]
     public string CustomerEmailAddress { get; set; }
 
     [Required(ErrorMessage = "Customer's phone number is required.")]
-    [StringLength(50)]
+    [DisplayName("Customer's phone number")]
+    [StringLength(50), Phone]
     public string CustomerPhoneNumber { get; set; }
 
     [Required(ErrorMessage = "Customer's address is required.")]
-    [StringLength(50)]
+    [DisplayName("Customer's address")]
+    [StringLength(250)]
     public string CustomerAddress { get; set; }
 
     [ForeignKey("OrderId")]
