@@ -31,6 +31,7 @@ namespace Algebra.WebShop.App.Controllers
                 var cart = HttpContext.Session.GetCart();
 
                 order.Total = cart.GrandTotal;
+                order.DateTimeCreated = DateTime.UtcNow;
 
                 context.Orders.Add(order);
                 context.SaveChanges();
