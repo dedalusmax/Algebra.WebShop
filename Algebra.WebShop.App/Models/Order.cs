@@ -10,9 +10,11 @@ public class Order
     public int Id { get; set; }
 
     [Required]
+    [DisplayName("Created on"), DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
     public DateTime DateTimeCreated { get; set; }
 
     [Required]
+    [DisplayName("Grand total")]
     [Column(TypeName = "decimal(9, 2)")]
     public decimal Total { get; set; }
 
