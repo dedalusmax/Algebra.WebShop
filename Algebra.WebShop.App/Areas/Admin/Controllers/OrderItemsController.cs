@@ -33,6 +33,8 @@ namespace Algebra.WebShop.App.Areas.Admin.Controllers
                              ProductName = products.Name
                          };
 
+            ViewData["ShowActions"] = true;
+
             //return View(await _context.OrderItems.ToListAsync());
             return View(result);
         }

@@ -62,6 +62,8 @@ namespace Algebra.WebShop.App.Areas.Admin.Controllers
                 }
                 ).ToList();
 
+            ViewData["ShowActions"] = false;
+
             return View(order);
         }
 
