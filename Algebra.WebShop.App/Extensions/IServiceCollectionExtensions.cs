@@ -11,6 +11,8 @@ public static class IServiceCollectionExtensions
     {
         // Add services to the container.
 
+        services.AddHttpContextAccessor();
+
         services.AddSession(options =>
         {
             options.IdleTimeout = TimeSpan.FromMinutes(1);

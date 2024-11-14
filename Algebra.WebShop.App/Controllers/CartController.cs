@@ -13,6 +13,8 @@ namespace Algebra.WebShop.App.Controllers
         {
             var cart = HttpContext.Session.GetCart();
 
+            ViewData["CartCount"] = cart.Items.Count;
+
             return View(cart);
         }
 

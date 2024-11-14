@@ -8,10 +8,14 @@
         <a class="nav-link text-dark" asp-area="" asp-controller="Cart" asp-action="Index">
             <i class="bi-cart"></i>
             Cart
-            <span class="top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                XXX
-                <span class="visually-hidden">unread messages</span>
-            </span>
+            @if (ViewBag.CartCount != null && ViewBag.CartCount > 0)
+            {
+                <span class="top-0 start-100 translate-middle badge rounded-pill bg-danger">
+
+                    @ViewBag.CartCount
+                    <span class="visually-hidden">unread messages</span>
+                </span>
+            }
         </a>
     </li>
 }
