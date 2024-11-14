@@ -31,6 +31,12 @@ namespace Algebra.WebShop.App.Areas.Admin.Controllers
                 return NotFound();
             }
 
+            //var order = from orders in _context.Orders
+            //            join user in _context.Users on orders.UserId equals user.Id
+            //            join items in _context.OrderItems on orders.Id equals items.OrderId
+            //            join products in _context.Products on items.ProductId equals products.Id
+            //            where orders.Id == id;
+
             var order = await _context.Orders
                 .Include(x => x.User)
                 .FirstOrDefaultAsync(m => m.Id == id);
@@ -39,6 +45,22 @@ namespace Algebra.WebShop.App.Areas.Admin.Controllers
             {
                 return NotFound();
             }
+
+            order.Items = (
+                from items in _context.OrderItems
+                join products in _context.Products on items.ProductId equals products.Id
+                where items.OrderId == id
+                select new OrderItem
+                {
+                    Id = items.Id,
+                    OrderId = items.OrderId,
+                    Price = items.Price,
+                    Quantity = items.Quantity,
+                    Total = items.Total,
+                    ProductId = items.ProductId,
+                    ProductName = products.Name
+                }
+                ).ToList();
 
             return View(order);
         }
