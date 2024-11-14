@@ -20,7 +20,21 @@ namespace Algebra.WebShop.App.Areas.Admin.Controllers
         // GET: Admin/OrderItems
         public async Task<IActionResult> Index()
         {
-            return View(await _context.OrderItems.ToListAsync());
+            var result = from items in _context.OrderItems
+                         join products in _context.Products on items.ProductId equals products.Id
+                         select new OrderItem 
+                         { 
+                             Id = items.Id,
+                             OrderId = items.OrderId,
+                             Price = items.Price,
+                             Quantity = items.Quantity,
+                             Total = items.Total,
+                             ProductId = items.ProductId,
+                             ProductName = products.Name
+                         };
+
+            //return View(await _context.OrderItems.ToListAsync());
+            return View(result);
         }
 
         // GET: Admin/OrderItems/Details/5
