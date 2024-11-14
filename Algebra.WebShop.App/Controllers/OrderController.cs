@@ -3,6 +3,7 @@ using Algebra.WebShop.App.Extensions;
 using Algebra.WebShop.App.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
 using System.Security.Claims;
 
 namespace Algebra.WebShop.App.Controllers
@@ -18,7 +19,21 @@ namespace Algebra.WebShop.App.Controllers
 
             ViewData["Cart"] = cart;
 
-            return View();
+            var userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var user = context.Users.Find(userId);
+
+            var order = new Order();
+
+            if (user != null)
+            {
+                order.CustomerFirstName = string.IsNullOrEmpty(user.FirstName) ? string.Empty : user.FirstName;
+                order.CustomerLastName = string.IsNullOrEmpty(user.LastName) ? string.Empty : user.LastName;
+                order.CustomerPhoneNumber = string.IsNullOrEmpty(user.PhoneNumber) ? string.Empty : user.PhoneNumber;
+                order.CustomerEmailAddress = string.IsNullOrEmpty(user.Email) ? string.Empty : user.Email;
+                order.CustomerAddress = string.IsNullOrEmpty(user.Address) ? string.Empty : user.Address;
+            }
+
+            return View(order);
         }
 
         [HttpPost]
