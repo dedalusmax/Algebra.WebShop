@@ -1,0 +1,31 @@
+﻿@using Algebra.WebShop.App.Views.Shared
+
+@model Cart
+
+@{
+    ViewData["Title"] = "Cart";
+}
+
+@if (Model.Items.Count == 0)
+{
+    <div class="text-center">
+        <h1 class="display-4">Your cart is empty!</h1>
+        <hr />
+        <a asp-controller="Products" asp-action="Index">Continue shopping</a>
+    </div>
+}
+else
+{
+    <div class="text-center">
+        <h1 class="display-4">Cart</h1>
+    </div>
+
+    <vc:shopping-cart></vc:shopping-cart>
+
+@*     @await Component.InvokeAsync(nameof(ShoppingCart))
+ *@
+
+    <hr />
+    <a class="btn btn-primary btn-lg float-start" asp-controller="Products" asp-action="Index">Continue shopping</a>
+    <a class="btn btn-success btn-lg float-end" asp-controller="Order" asp-action="Index">Order products</a>
+}

@@ -1,0 +1,89 @@
+﻿@model Order
+
+@{
+    ViewData["Title"] = "Order";
+}
+
+@*     <div class="alert alert-danger" role="alert">
+        An error has occured:
+    </div> *@
+
+@if (ViewBag.Success == true)
+{
+    <div class="alert alert-success" role="alert">
+      Order has been successfully placed!
+    </div>    
+}
+
+@if (ViewBag.Cart.Items.Count == 0)
+{
+    <h3 class="display-4">Your cart is empty!</h3>
+    <a class="btn btn-secondary float-start" asp-controller="Products" asp-action="Index">Continue shopping</a>
+}
+else
+{
+    <div class="text-center mb-3">
+        <h1 class="display-4">Place your order</h1>
+    </div>
+    <hr />
+    <div class="container">
+        <div class="row mt-3">
+            <div class="col">
+                <vc:shopping-cart></vc:shopping-cart>
+            </div>
+        </div>
+
+        <div class="row mt-3">
+            <div class="col">
+                <div class="text-center">
+                    <h3>Personal information</h3>
+                </div>
+                <form asp-action="Create">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="row">
+                        <div class="col form-group">
+                            <label asp-for="CustomerFirstName" class="control-label"></label>
+                            <input asp-for="CustomerFirstName" class="form-control" />
+                            <span asp-validation-for="CustomerFirstName" class="text-danger"></span>
+                        </div>
+                        <div class="col form-group">
+                            <label asp-for="CustomerLastName" class="control-label"></label>
+                            <input asp-for="CustomerLastName" class="form-control" />
+                            <span asp-validation-for="CustomerLastName" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col form-group">
+                            <label asp-for="CustomerEmailAddress" class="control-label"></label>
+                            <input asp-for="CustomerEmailAddress" class="form-control" />
+                            <span asp-validation-for="CustomerEmailAddress" class="text-danger"></span>
+                        </div>
+                        <div class="col form-group">
+                            <label asp-for="CustomerPhoneNumber" class="control-label"></label>
+                            <input asp-for="CustomerPhoneNumber" class="form-control" />
+                            <span asp-validation-for="CustomerPhoneNumber" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="CustomerAddress" class="control-label"></label>
+                        <input asp-for="CustomerAddress" class="form-control" />
+                        <span asp-validation-for="CustomerAddress" class="text-danger"></span>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <a class="btn btn-outline-danger float-start" asp-controller="Cart" asp-action="Index">Cancel order</a>
+                            <input type="submit" value="Place order" class="btn btn-primary float-end" />
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
