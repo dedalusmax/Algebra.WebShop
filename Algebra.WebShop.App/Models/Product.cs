@@ -27,4 +27,8 @@ public class Product
     [NotMapped, DisplayName("Categories")]
     public string CategoriesDisplay => 
         Categories != null ? string.Join(", ", Categories.Select(x => x.Category.Name)) : string.Empty;
+
+    public string FileName { get; set; }
+
+    public byte[] FileContent { get; set; }
 }
