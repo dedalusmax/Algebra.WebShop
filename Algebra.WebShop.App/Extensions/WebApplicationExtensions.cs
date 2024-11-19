@@ -1,4 +1,7 @@
-﻿namespace Algebra.WebShop.App.Extensions;
+﻿using Microsoft.AspNetCore.Localization;
+using System.Globalization;
+
+namespace Algebra.WebShop.App.Extensions;
 
 public static class WebApplicationExtensions
 {
@@ -18,6 +21,17 @@ public static class WebApplicationExtensions
 
         app.UseHttpsRedirection();
         app.UseStaticFiles();
+
+        var culture = new CultureInfo("hr-HR");
+        culture.NumberFormat.NumberDecimalSeparator = ".";
+        culture.NumberFormat.CurrencyDecimalSeparator = ".";
+
+        app.UseRequestLocalization(new RequestLocalizationOptions()
+        {
+            DefaultRequestCulture = new RequestCulture(culture),
+            SupportedCultures = [culture],
+            SupportedUICultures = [culture]
+        });
 
         app.UseRouting();
 
