@@ -87,7 +87,7 @@ namespace Algebra.WebShop.App.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Price,Description")] Product product)
+        public async Task<IActionResult> Edit(int id, IFormFile? file, [Bind("Id,Name,Price,Description")] Product product)
         {
             if (id != product.Id)
             {
@@ -96,9 +96,20 @@ namespace Algebra.WebShop.App.Areas.Admin.Controllers
 
             ModelState.Remove("Categories");
             ModelState.Remove("OrderItems");
+            ModelState.Remove(nameof(Product.FileName));
+            ModelState.Remove(nameof(Product.FileContent));
 
             if (ModelState.IsValid)
             {
+                if (file != null && file.Length > 0)
+                {
+                    using var memoryStream = new MemoryStream();
+                    await file.CopyToAsync(memoryStream);
+
+                    product.FileName = file.FileName;
+                    product.FileContent = memoryStream.ToArray();
+                }
+
                 try
                 {
                     _context.Update(product);
