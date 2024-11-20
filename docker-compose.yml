@@ -1,0 +1,6 @@
+services:
+  algebra.webshop.app:
+    image: ${DOCKER_REGISTRY-}algebrawebshopapp
+    build:
+      context: .
+      dockerfile: Algebra.WebShop.App/Dockerfile
