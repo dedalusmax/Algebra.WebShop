@@ -7,7 +7,8 @@ namespace Algebra.WebShop.App.Extensions;
 
 public static class IServiceCollectionExtensions
 {
-    public static IServiceCollection ConfigureServices(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection ConfigureServices(this IServiceCollection services, 
+        IConfiguration configuration, IWebHostEnvironment environment)
     {
         // Add services to the container.
 
@@ -20,11 +21,16 @@ public static class IServiceCollectionExtensions
             options.Cookie.IsEssential = true;
         });
 
-        var connectionString = configuration.GetConnectionString("DefaultConnection")
-            ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
-
-        services.AddDbContext<ApplicationDbContext>(options =>
-            options.UseSqlServer(connectionString));
+        if (environment.IsDevelopment())
+        {
+            services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+        }
+        else
+        {
+            services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseSqlServer(Environment.GetEnvironmentVariable("AZURE_SQL_CONNECTIONSTRING")));
+        }
 
         services.AddDatabaseDeveloperPageExceptionFilter();
 
