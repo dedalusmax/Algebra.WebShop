@@ -31,6 +31,8 @@ jobs:
       run: |
         docker build -t ${{ vars.ACR_SERVER }}/${{ vars.ACR_APP_NAME }}:${{ github.sha }} .
         docker push ${{ vars.ACR_SERVER }}/${{ vars.ACR_APP_NAME }}:${{ github.sha }}
+        docker build -t ${{ vars.ACR_SERVER }}/${{ vars.ACR_DB_NAME }}:latest -f Dockerfile.sql .
+        docker push ${{ vars.ACR_SERVER }}/${{ vars.ACR_DB_NAME }}:latest
 
   deploy:
     runs-on: ubuntu-latest
@@ -47,4 +49,4 @@ jobs:
     - name: Deploy to Azure Container Apps
       run: |
         az containerapp up --name ${{ vars.ACR_APP_NAME }} --resource-group ${{ vars.AZURE_RESOURCE_GROUP }} --image ${{ vars.ACR_SERVER }}/${{ vars.ACR_APP_NAME }}:${{ github.sha }} --environment ${{ vars.ACR_ENVIRONMENT }}
-        
+        az containerapp up --name ${{ vars.ACR_DB_NAME }} --resource-group ${{ vars.AZURE_RESOURCE_GROUP }} --image ${{ vars.ACR_SERVER }}/${{ vars.ACR_DB_NAME }}:${{ github.sha }} --environment ${{ vars.ACR_ENVIRONMENT }}
