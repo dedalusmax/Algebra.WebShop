@@ -28,7 +28,7 @@ public class Product
     public string CategoriesDisplay => 
         Categories != null ? string.Join(", ", Categories.Select(x => x.Category.Name)) : string.Empty;
 
-    public string FileName { get; set; }
+    public string? FileName { get; set; }
 
-    public byte[] FileContent { get; set; }
+    public byte[]? FileContent { get; set; }
 }

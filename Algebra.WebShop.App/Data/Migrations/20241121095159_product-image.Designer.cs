@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Algebra.WebShop.App.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241119172433_product-image")]
+    [Migration("20241121095159_product-image")]
     partial class productimage
     {
         /// <inheritdoc />
@@ -218,11 +218,9 @@ namespace Algebra.WebShop.App.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<byte[]>("FileContent")
-                        .IsRequired()
                         .HasColumnType("varbinary(max)");
 
                     b.Property<string>("FileName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
