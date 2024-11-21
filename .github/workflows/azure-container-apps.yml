@@ -31,8 +31,8 @@ jobs:
       run: |
         docker build -t ${{ vars.ACR_SERVER }}/${{ vars.ACR_APP_NAME }}:${{ github.sha }} -f Algebra.WebShop.App/Dockerfile .
         docker push ${{ vars.ACR_SERVER }}/${{ vars.ACR_APP_NAME }}:${{ github.sha }}
-        docker build -t ${{ vars.ACR_SERVER }}/${{ vars.ACR_DB_NAME }}:latest -f Algebra.WebShop.App/Dockerfile.sql .
-        docker push ${{ vars.ACR_SERVER }}/${{ vars.ACR_DB_NAME }}:latest
+        docker build -t ${{ vars.ACR_SERVER }}/${{ vars.ACR_DB_NAME }}:${{ github.sha }} -f Algebra.WebShop.App/Dockerfile.sql .
+        docker push ${{ vars.ACR_SERVER }}/${{ vars.ACR_DB_NAME }}:${{ github.sha }}
 
   deploy:
     runs-on: ubuntu-latest
@@ -60,6 +60,6 @@ jobs:
         az containerapp up \
             --name ${{ vars.ACR_DB_NAME }} \
             --resource-group ${{ vars.AZURE_RESOURCE_GROUP }} \
-            --image ${{ vars.ACR_SERVER }}/${{ vars.ACR_DB_NAME }}:latest \
+            --image ${{ vars.ACR_SERVER }}/${{ vars.ACR_DB_NAME }}:${{ github.sha }} \
             --environment ${{ vars.ACR_ENVIRONMENT }}
 
