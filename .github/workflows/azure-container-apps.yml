@@ -48,5 +48,19 @@ jobs:
         
     - name: Deploy to Azure Container Apps
       run: |
-        az containerapp up --name ${{ vars.ACR_APP_NAME }} --resource-group ${{ vars.AZURE_RESOURCE_GROUP }} --image ${{ vars.ACR_SERVER }}/${{ vars.ACR_APP_NAME }}:${{ github.sha }} --environment ${{ vars.ACR_ENVIRONMENT }} --set-env-vars "AZURE_SQL_CONNECTIONSTRING=\"Server=webshop-sql,1433;Database=WebShopDB;User Id=sa;Password=YourStrongPassw0rd;Encrypt=False;TrustServerCertificate=True;\""
-        az containerapp up --name ${{ vars.ACR_DB_NAME }} --resource-group ${{ vars.AZURE_RESOURCE_GROUP }} --image ${{ vars.ACR_SERVER }}/${{ vars.ACR_DB_NAME }}:${{ github.sha }} --environment ${{ vars.ACR_ENVIRONMENT }}
+        az containerapp up \
+            --name ${{ vars.ACR_APP_NAME }} \
+            --resource-group ${{ vars.AZURE_RESOURCE_GROUP }} \
+            --image ${{ vars.ACR_SERVER }}/${{ vars.ACR_APP_NAME }}:${{ github.sha }} \
+            --environment ${{ vars.ACR_ENVIRONMENT }} 
+        az containerapp up \
+            --name ${{ vars.ACR_DB_NAME }} \
+            --resource-group ${{ vars.AZURE_RESOURCE_GROUP }} \
+            --image ${{ vars.ACR_SERVER }}/${{ vars.ACR_DB_NAME }}:latest \
+            --environment ${{ vars.ACR_ENVIRONMENT }}
+        az containerapp update \
+            --name ${{ vars.ACR_APP_NAME }} \
+            --resource-group ${{ vars.AZURE_RESOURCE_GROUP }} \
+            --environment ${{ vars.ACR_ENVIRONMENT }} 
+            --set-env-vars "AZURE_SQL_CONNECTIONSTRING=\"Server=${{ vars.ACR_DB_NAME }},1433;Database=WebShopDB;User Id=sa;Password=YourStrongPassw0rd;Encrypt=False;TrustServerCertificate=True;\""
+
