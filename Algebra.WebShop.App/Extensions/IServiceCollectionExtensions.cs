@@ -21,7 +21,9 @@ public static class IServiceCollectionExtensions
             options.Cookie.IsEssential = true;
         });
 
-        if (environment.IsDevelopment())
+        var inContainer = bool.TryParse(configuration["DOTNET_RUNNING_IN_CONTAINER"], out bool value) && value;
+
+        if (environment.IsDevelopment() && !inContainer)
         {
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));

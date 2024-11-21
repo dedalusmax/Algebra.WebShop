@@ -1,6 +1,13 @@
 services:
   algebra.webshop.app:
+    container_name: app
     image: ${DOCKER_REGISTRY-}algebrawebshopapp
     build:
       context: .
       dockerfile: Algebra.WebShop.App/Dockerfile
+    depends_on:
+    - sqlserver
+   
+  sqlserver:
+    container_name: db
+    image: mcr.microsoft.com/mssql/server:2022-latest

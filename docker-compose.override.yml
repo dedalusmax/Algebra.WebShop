@@ -4,9 +4,16 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTP_PORTS=8080
       - ASPNETCORE_HTTPS_PORTS=8081
+      - AZURE_SQL_CONNECTIONSTRING=Server=sqlserver;Database=WebShopDB;User Id=sa;Password=YourStrongPassw0rd;Encrypt=False;TrustServerCertificate=True;
     ports:
       - "8080"
       - "8081"
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+  sqlserver:
+    environment:
+      SA_PASSWORD: "YourStrongPassw0rd"
+      ACCEPT_EULA: "Y"
+    ports:
+      - "1434:1433"
