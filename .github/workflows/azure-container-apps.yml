@@ -29,10 +29,10 @@ jobs:
 
     - name: Build and push Docker image
       run: |
-        docker build -f Algebra.WebShop.App/Dockerfile -t ${{ vars.ACR_SERVER }}/${{ vars.ACR_APP_NAME }}:${{ github.sha }} .
-        docker push -t ${{ vars.ACR_SERVER }}/${{ vars.ACR_APP_NAME }}:${{ github.sha }}
-        docker build -f Algebra.WebShop.App/Dockerfile.sql -t ${{ vars.ACR_SERVER }}/${{ vars.ACR_DB_NAME }}:latest -f Dockerfile.sql .
-        docker push -t ${{ vars.ACR_SERVER }}/${{ vars.ACR_DB_NAME }}:latest
+        docker build -t ${{ vars.ACR_SERVER }}/${{ vars.ACR_APP_NAME }}:${{ github.sha }} -f Algebra.WebShop.App/Dockerfile .
+        docker push ${{ vars.ACR_SERVER }}/${{ vars.ACR_APP_NAME }}:${{ github.sha }}
+        docker build -t ${{ vars.ACR_SERVER }}/${{ vars.ACR_DB_NAME }}:latest -f Algebra.WebShop.App/Dockerfile.sql .
+        docker push ${{ vars.ACR_SERVER }}/${{ vars.ACR_DB_NAME }}:latest
 
   deploy:
     runs-on: ubuntu-latest
