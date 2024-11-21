@@ -215,11 +215,9 @@ namespace Algebra.WebShop.App.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<byte[]>("FileContent")
-                        .IsRequired()
                         .HasColumnType("varbinary(max)");
 
                     b.Property<string>("FileName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")

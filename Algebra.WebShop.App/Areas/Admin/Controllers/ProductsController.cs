@@ -67,6 +67,8 @@ namespace Algebra.WebShop.App.Areas.Admin.Controllers
         {
             ModelState.Remove("Categories");
             ModelState.Remove("OrderItems");
+            ModelState.Remove(nameof(Product.FileName));
+            ModelState.Remove(nameof(Product.FileContent));
 
             if (ModelState.IsValid)
             {

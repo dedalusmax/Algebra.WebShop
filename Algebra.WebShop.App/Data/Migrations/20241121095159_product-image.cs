@@ -14,15 +14,13 @@ namespace Algebra.WebShop.App.Data.Migrations
                 name: "FileContent",
                 table: "Products",
                 type: "varbinary(max)",
-                nullable: false,
-                defaultValue: new byte[0]);
+                nullable: true);
 
             migrationBuilder.AddColumn<string>(
                 name: "FileName",
                 table: "Products",
                 type: "nvarchar(max)",
-                nullable: false,
-                defaultValue: "");
+                nullable: true);
         }
 
         /// <inheritdoc />
