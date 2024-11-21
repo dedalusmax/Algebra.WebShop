@@ -2,7 +2,8 @@ name: Build and deploy ASP.NET Core MVC app to Azure Container Apps
 
 on:
   push:
-    branches: [ "main" ]
+    branches: 
+    - 13-deploy
 
 permissions:
   id-token: write
