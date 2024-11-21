@@ -28,8 +28,8 @@ jobs:
 
     - name: Build and push Docker image
       run: |
-        docker build -t ${{ vars.ACR_SERVER }}/${{ vars.APP_NAME }}:${{ github.sha }} .
-        docker push ${{ vars.ACR_SERVER }}/${{ vars.APP_NAME }}:${{ github.sha }}
+        docker build -t ${{ vars.ACR_SERVER }}/${{ vars.ACR_APP_NAME }}:${{ github.sha }} .
+        docker push ${{ vars.ACR_SERVER }}/${{ vars.ACR_APP_NAME }}:${{ github.sha }}
 
   deploy:
     runs-on: ubuntu-latest
@@ -45,6 +45,6 @@ jobs:
         
     - name: Deploy to Azure Container Apps
       run: |
-        az containerapp up --name ${{ vars.APP_NAME }} --resource-group ${{ vars.AZURE_RESOURCE_GROUP }} --image ${{ vars.ACR_SERVER }}/${{ vars.APP_NAME }}:${{ github.sha }} --environment ${{ vars.ACR_ENVIRONMENT }}
+        az containerapp up --name ${{ vars.ACR_APP_NAME }} --resource-group ${{ vars.AZURE_RESOURCE_GROUP }} --image ${{ vars.ACR_SERVER }}/${{ vars.ACR_APP_NAME }}:${{ github.sha }} --environment ${{ vars.ACR_ENVIRONMENT }}
         
 
