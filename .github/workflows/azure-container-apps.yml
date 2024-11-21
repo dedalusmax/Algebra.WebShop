@@ -56,8 +56,7 @@ jobs:
         az containerapp update \
             --name ${{ vars.ACR_APP_NAME }} \
             --resource-group ${{ vars.AZURE_RESOURCE_GROUP }} \
-            --environment ${{ vars.ACR_ENVIRONMENT }} 
-            --set-env-vars "AZURE_SQL_CONNECTIONSTRING=\"Server=${{ vars.ACR_DB_NAME }},1433;Database=WebShopDB;User Id=sa;Password=YourStrongPassw0rd;Encrypt=False;TrustServerCertificate=True;\""
+            --set-env-vars "AZURE_SQL_CONNECTIONSTRING=Server=${{ vars.ACR_DB_NAME }},1433;Database=WebShopDB;User Id=sa;Password=YourStrongPassw0rd;Encrypt=False;TrustServerCertificate=True;"
         az containerapp up \
             --name ${{ vars.ACR_DB_NAME }} \
             --resource-group ${{ vars.AZURE_RESOURCE_GROUP }} \
