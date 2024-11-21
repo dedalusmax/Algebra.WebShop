@@ -1,0 +1,50 @@
+name: Build and deploy ASP.NET Core MVC app to Azure Container Apps
+
+on:
+  push:
+    branches: 
+    - 13-deploy
+
+permissions:
+  id-token: write
+  contents: read
+  
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+
+    - name: Login to Azure Container Registry
+      uses: azure/docker-login@v1
+      with:
+        login-server: ${{ vars.ACR_SERVER }}
+        username: ${{ secrets.ACR_USERNAME }}
+        password: ${{ secrets.ACR_PASSWORD }}
+
+    - name: Build and push Docker image
+      run: |
+        docker build -t ${{ vars.ACR_SERVER }}/${{ vars.ACR_APP_NAME }}:${{ github.sha }} .
+        docker push ${{ vars.ACR_SERVER }}/${{ vars.ACR_APP_NAME }}:${{ github.sha }}
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+    - name: Azure Login
+      uses: azure/login@v2
+      with:
+        client-id: ${{ secrets.AZURE_CLIENT_ID }}
+        tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+        subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+        
+    - name: Deploy to Azure Container Apps
+      run: |
+        az containerapp up --name ${{ vars.ACR_APP_NAME }} --resource-group ${{ vars.AZURE_RESOURCE_GROUP }} --image ${{ vars.ACR_SERVER }}/${{ vars.ACR_APP_NAME }}:${{ github.sha }} --environment ${{ vars.ACR_ENVIRONMENT }}
+        
