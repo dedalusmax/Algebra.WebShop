@@ -5,6 +5,8 @@ VisualStudioVersion = 17.11.35312.102
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Algebra.WebShop.App", "Algebra.WebShop.App\Algebra.WebShop.App.csproj", "{7A756DE5-70E9-4C47-A752-2EB52457D0E5}"
 EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{C3F9B666-CC4D-4EB0-9E97-BF25AB312FEB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{7A756DE5-70E9-4C47-A752-2EB52457D0E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7A756DE5-70E9-4C47-A752-2EB52457D0E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7A756DE5-70E9-4C47-A752-2EB52457D0E5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C3F9B666-CC4D-4EB0-9E97-BF25AB312FEB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3F9B666-CC4D-4EB0-9E97-BF25AB312FEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3F9B666-CC4D-4EB0-9E97-BF25AB312FEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3F9B666-CC4D-4EB0-9E97-BF25AB312FEB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
